@@ -1,0 +1,16 @@
+# 忽略本地构建产物与敏感文件，缩小 Docker 构建上下文
+target/
+.idea/
+.vscode/
+*.iml
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+data/
+logs/
+Dockerfile
+docker-compose.yml
+.github/
+*.md
