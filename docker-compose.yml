@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: school-entry-audit:latest
+    container_name: school-entry-audit
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:h2:file:/app/data/school-entry-audit;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:-org.h2.Driver}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-sa}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-}
+      SPRING_JPA_DATABASE_PLATFORM: ${SPRING_JPA_DATABASE_PLATFORM:-org.hibernate.dialect.H2Dialect}
+      SERVER_PORT: ${SERVER_PORT:-8080}
+      JAVA_OPTS: ${JAVA_OPTS:-}
+    ports:
+      - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
+    volumes:
+      - ./data:/app/data
